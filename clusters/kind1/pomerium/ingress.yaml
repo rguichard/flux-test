@@ -1,0 +1,22 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  namespace: pomerium
+  name: pomerium-authenticate
+spec:
+  ingressClassName: pomerium
+  rules:
+    - host: hello.lol
+      http:
+        paths:
+          - backend:
+              service:
+                name: pomerium-proxy
+                port:
+                  number: 80
+            path: /
+            pathType: ImplementationSpecific
+  tls:
+    - hosts:
+      - hello.lol
+      secretName: hello.lol
