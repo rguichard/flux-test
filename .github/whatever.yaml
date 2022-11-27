@@ -1,0 +1,27 @@
+name: Helm
+
+on:
+  push:
+    branches:
+      - main
+
+permissions:
+  id-token: write
+  actions: write
+  pull-requests: write
+  issues: write
+  contents: read
+
+jobs:
+  job:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      - name: 'asdf:install'
+        run: |
+          echo "hello world"
+
