@@ -6,7 +6,7 @@ spec:
   force: false
   interval: 10m0s
   path: ./ks1
-  prune: true
+  prune: false
   sourceRef:
     kind: GitRepository
     name: flux-test
