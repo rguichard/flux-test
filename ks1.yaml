@@ -1,0 +1,12 @@
+apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+kind: Kustomization
+metadata:
+  name: ks1
+spec:
+  force: false
+  interval: 10m0s
+  path: ./ks1
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: flux-test
