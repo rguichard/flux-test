@@ -7,6 +7,6 @@ configMapGenerator:
   - name: ada-base-config
     namespace: default
     files:
-      - config=ada-base.config
+      - values.yaml=ada-base.config
 configurations:
   - kustomizeconfig.yaml

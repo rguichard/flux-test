@@ -23,7 +23,5 @@ spec:
         name: podinfo
   valuesFrom:
     - kind: ConfigMap
-      name: ada-base-config-old
-      valuesKey: config
-      targetPath: ada.config
+      name: ada-base-config
       optional: false
