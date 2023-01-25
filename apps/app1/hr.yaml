@@ -24,3 +24,6 @@ spec:
   valuesFrom:
     - kind: ConfigMap
       name: ada-base-config
+      valuesKey: config
+      targetPath: ada.config
+      optional: false
