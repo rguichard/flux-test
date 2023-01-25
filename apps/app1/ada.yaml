@@ -6,6 +6,8 @@ metadata:
   namespace: default
 data:
   config: |-
+    nodeSelector:
+      color: blue
     ada:
       server:
         http-port: 8080
