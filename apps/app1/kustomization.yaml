@@ -9,4 +9,3 @@ configMapGenerator:
       - config=ada-base.config
 configurations:
   - kustomizeconfig.yaml
-
