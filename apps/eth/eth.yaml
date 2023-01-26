@@ -1,0 +1,11 @@
+# Base configuration for Ethereum services.
+#
+# Values here can be overriden by corresponding environment
+# variables (i.e: eth.http-port -> ETH_HTTP_PORT).
+eth:
+  deployer:
+    validator-clients:
+      filepaths: "goerli-prysm-validator-a-0.yaml,goerli-teku-validator-c-0.yaml"
+
+nodeSelector:
+  color: black

@@ -1,0 +1,12 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+- eth-api.yaml
+configMapGenerator:
+  - name: eth-base-config
+    namespace: default
+    files:
+      - values.yaml=eth.yaml
+configurations:
+  - kustomizeconfig.yaml
+
