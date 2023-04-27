@@ -1,0 +1,18 @@
+name: OpenAPI Tests
+
+on:
+  repository_dispatch:
+    # On deploys to devnet, testnet, and mainnet
+    types: [HelmRelease/podinfo.vaas-devnet]
+
+jobs:
+  api_test_devnet:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Run OpenAPI API Test Runner
+        run: |
+          curl https://particule.io -vv
+
