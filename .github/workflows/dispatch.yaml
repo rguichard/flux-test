@@ -4,8 +4,7 @@ on:
   repository_dispatch:
     # On deploys to devnet, testnet, and mainnet
     types:
-      - HelmRelease/podinfo.vaas-devnet
-      - HelmRelease/pod.vaas-devnet
+      - HelmRelease/*.vaas-devnet
 
 jobs:
   api_test_devnet:
