@@ -17,12 +17,16 @@ jobs:
 
       - name: 'echo'
         run: |
+          git checkout branch
           echo "hello world" >> hello
           git add hello
           git config --global user.email "romain@particule.io"
           git config --global user.name "rguichard"
           git commit hello -m "add hello"
-      - name: 'push'
+      - name: 'push main'
         run: |
           git push origin main --force
+      - name: 'push branch'
+        run: |
+          git push origin branch --force
 
