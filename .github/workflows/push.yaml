@@ -1,0 +1,28 @@
+name: "push on its own"
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+
+jobs:
+  job:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      - name: 'echo'
+        run: |
+          echo "hello world" >> hello
+          git add hello
+          git config --global user.email "romain@particule.io"
+          git config --global user.name "rguichard"
+          git commit hello -m "add hello"
+      - name: 'push'
+        run: |
+          git push origin main --force
+
