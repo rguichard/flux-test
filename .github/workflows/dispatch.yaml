@@ -18,7 +18,7 @@ jobs:
         run: |
           VERSION=$(echo ${{ github.event.client_payload.metadata.revision }} | cut -d '@' -f1)
           APP=$(echo ${{ github.event.client_payload.involvedObject.name }})
-          echo VERSION=${APP} >> $GITHUB_OUTPUT
+          echo VERSION=${VERSION} >> $GITHUB_OUTPUT
           echo APP=${APP} >> $GITHUB_OUTPUT
 
       # Patch the chart version in the mainnet Helm release manifest.
