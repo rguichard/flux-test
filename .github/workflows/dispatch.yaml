@@ -26,7 +26,7 @@ jobs:
         id: mainnet
         env:
           CHART_VERSION: ${{ steps.testnet.outputs.version }}
-          APP: ${{ steps.testnet.outputs.version }}
+          APP: ${{ steps.testnet.outputs.app }}
         run: |
           echo "set ${APP} chart version to ${CHART_VERSION}"
           yq eval '.spec.chart.spec.version=env(CHART_VERSION)' -i ./${APP}.yaml
