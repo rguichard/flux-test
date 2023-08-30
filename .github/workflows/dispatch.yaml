@@ -17,6 +17,4 @@ jobs:
         id: testnet
         run: |
           VERSION=$(echo ${{ github.event.client_payload.metadata.revision }} | cut -d '@' -f1)
-          echo ${{ github.event.client_payload }} | jq .
-          echo ${{ toJson(github.event.client_payload) }}
-
+          echo "Client Payload: ${{ toJson(github.event.client_payload) }}"
