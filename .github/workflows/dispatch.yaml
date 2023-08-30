@@ -17,5 +17,28 @@ jobs:
         id: testnet
         run: |
           VERSION=$(echo ${{ github.event.client_payload.metadata.revision }} | cut -d '@' -f1)
-          echo "Client Payload: ${{ toJson(github.event.client_payload) }}"
-          echo ${{ github.event.client_payload.involvedObject.name }}
+          APP=$(echo ${{ github.event.client_payload.involvedObject.name }})
+          echo VERSION=${APP} >> $GITHUB_OUTPUT
+          echo APP=${APP} >> $GITHUB_OUTPUT
+
+      # Patch the chart version in the mainnet Helm release manifest.
+      - name: Set chart version in mainnet
+        id: mainnet
+        env:
+          CHART_VERSION: ${{ steps.testnet.outputs.version }}
+          APP: ${{ steps.testnet.outputs.version }}
+        run: |
+          echo "set ${APP} chart version to ${CHART_VERSION}"
+          yq eval '.spec.chart.spec.version=env(CHART_VERSION)' ./${APP}.yaml
+
+      # Open a Pull Request if an upgraded is needed in mainnet.
+      - name: Open promotion PR
+        uses: peter-evans/create-pull-request@v4
+        with:
+          branch: promotion
+          delete-branch: true
+          token: ${{ secrets.GITHUB_TOKEN }}
+          commit-message: Update ${{ steps.testnet.outputs.app }} to v${{ steps.testnet.outputs.version }}
+          title: ${{ steps.testnet.outputs.app }} update ${{ steps.testnet.outputs.version }}
+          body: |
+            Promote demo release on mainnet to v${{ steps.testnet.outputs.version }}
