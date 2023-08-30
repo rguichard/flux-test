@@ -18,3 +18,4 @@ jobs:
         run: |
           VERSION=$(echo ${{ github.event.client_payload.metadata.revision }} | cut -d '@' -f1)
           echo "Client Payload: ${{ toJson(github.event.client_payload) }}"
+          echo ${{ github.event.client_payload.involvedObject.name }}
