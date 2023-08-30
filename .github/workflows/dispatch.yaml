@@ -4,16 +4,19 @@ on:
   repository_dispatch:
     # On deploys to devnet, testnet, and mainnet
     types:
-      - HelmRelease/*.vaas-devnet
+      - HelmRelease/*.vaas-testnet
 
 jobs:
   api_test_devnet:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v2
-
-      - name: Run OpenAPI API Test Runner
+      - uses: actions/checkout@v3
+        with:
+          ref: main
+      - name: Get chart version from testnet
+        id: testnet
         run: |
-          curl https://particule.io -vv
+          VERSION=$(echo ${{ github.event.client_payload.metadata.revision }} | cut -d '@' -f1)
+          echo ${{ github.event.client_payload }} | jq .
+          echo ${{ toJson(github.event.client_payload) }}
 
