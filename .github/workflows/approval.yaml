@@ -19,7 +19,7 @@ jobs:
         id: check-rolebindings
         run: |
           # Add a command to check for rolebindings in PR changes, e.g., using 'grep'
-          if grep -rl 'rolebinding' ${{ github.workspace }}/*; then
+          if grep -rl 'RoleBinding' ${{ github.workspace }}/*; then
             echo "Kubernetes rolebindings found in PR changes."
             echo "RBAC_CHANGED=true" >> $GITHUB_OUTPUT
           else
