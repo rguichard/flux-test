@@ -17,6 +17,8 @@ jobs:
     steps:
       - name: Check for Kubernetes rolebindings
         id: check-rolebindings
+        env:
+          GH_TOKEN: ${{ github.token }}
         run: |
           echo ${{ github.event.issue.number }}
           ls -lR ${{ github.workspace }}
