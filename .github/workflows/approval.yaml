@@ -28,7 +28,7 @@ jobs:
           fi
       - name: Request approval from specific user
         if: steps.check-rolebindings.outputs.rbac_changed == 'true'
-        uses: octokit/request-reviewer-action@v2
+        uses: hkusu/review-assign-action@v1
         with:
-          reviewers: rguichard
+          reviewers: ArchiFleKs
           token: ${{ secrets.GITHUB_TOKEN }}
