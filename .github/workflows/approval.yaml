@@ -21,10 +21,9 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          echo ${{ github.event.issue.number }}
-          ls -lR ${{ github.workspace }}
+          gh pr diff
           for file in $(gh pr view ${{ github.event.issue.number }} --json files --jq '.files.[].path'); do
-            if grep -Rl 'RoleBinding' $(realpath $file); then
+            if grep 'RoleBinding' $file; then
               echo "Kubernetes rolebindings found in PR changes."
               echo "RBAC_CHANGED=true" >> $GITHUB_OUTPUT
             else
