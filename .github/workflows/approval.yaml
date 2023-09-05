@@ -13,14 +13,14 @@ permissions:
 jobs:
   enforce_approval:
     runs-on: ubuntu-latest
-
     steps:
+      - name: 'git:checkout'
+        uses: actions/checkout@v2
       - name: Check for Kubernetes rolebindings
         id: check-rolebindings
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          find / -name "hello.yaml"
           echo ${{ github.event.issue.number }}
           ls -lR ${{ github.workspace }}
           for file in $(gh pr view ${{ github.event.issue.number }} --json files --jq '.files.[].path'); do
