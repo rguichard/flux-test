@@ -21,13 +21,14 @@ jobs:
           echo ${{ github.event.issue.number }}
           ls -lR ${{ github.workspace }}
           for file in $(gh pr view ${{ github.event.issue.number }} --json files --jq '.files.[].path'); do
-            if grep -Rl 'RoleBinding' ${{ github.workspace }}/$file; then
+            if grep -Rl 'RoleBinding' $(realpath $file); then
               echo "Kubernetes rolebindings found in PR changes."
               echo "RBAC_CHANGED=true" >> $GITHUB_OUTPUT
             else
               echo "No Kubernetes rolebindings found in PR changes."
               echo "RBAC_CHANGED=false" >> $GITHUB_OUTPUT
             fi
+
       - name: Request approval from specific user
         if: steps.check-rolebindings.outputs.rbac_changed == 'true'
         uses: hkusu/review-assign-action@v1
