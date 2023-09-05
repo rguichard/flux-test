@@ -1,0 +1,34 @@
+name: Enforce Approval for Rolebinding Changes
+
+on:
+  pull_request:
+    types:
+      - opened
+      - synchronize
+
+permissions:
+  id-token: write
+  contents: read
+
+jobs:
+  enforce_approval:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check for Kubernetes rolebindings
+        id: check-rolebindings
+        run: |
+          # Add a command to check for rolebindings in PR changes, e.g., using 'grep'
+          if grep -rl 'rolebinding' ${{ github.workspace }}/*; then
+            echo "Kubernetes rolebindings found in PR changes."
+            echo "RBAC_CHANGED=true" >> $GITHUB_OUTPUT
+          else
+            echo "No Kubernetes rolebindings found in PR changes."
+            echo "RBAC_CHANGED=false" >> $GITHUB_OUTPUT
+          fi
+      - name: Request approval from specific user
+        if: steps.check-rolebindings.outputs.rbac_changed == 'true'
+        uses: octokit/request-reviewer-action@v2
+        with:
+          reviewers: rguichard
+          token: ${{ secrets.GITHUB_TOKEN }}
