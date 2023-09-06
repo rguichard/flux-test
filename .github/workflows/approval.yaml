@@ -23,8 +23,8 @@ jobs:
         run: |
           git checkout
           git remote -v
-          gh pr diff
-          for file in $(gh pr view ${{ github.event.issue.number }} --json files --jq '.files.[].path'); do
+          pull_number=$(jq --raw-output .pull_request.number "$GITHUB_EVENT_PATH")
+          for file in $(gh pr view $pull_number --json files --jq '.files.[].path'); do
             if grep 'RoleBinding' $file; then
               echo "Kubernetes rolebindings found in PR changes."
               echo "RBAC_CHANGED=true" >> $GITHUB_OUTPUT
