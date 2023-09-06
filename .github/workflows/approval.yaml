@@ -38,4 +38,4 @@ jobs:
         uses: hkusu/review-assign-action@v1
         with:
           reviewers: ArchiFleKs
-          github_token: ${{ secrets.GITHUB_TOKEN }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
