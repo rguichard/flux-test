@@ -15,7 +15,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: 'git:checkout'
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
       - name: Check for Kubernetes rolebindings
         id: check-rolebindings
         env:
@@ -38,4 +38,4 @@ jobs:
         uses: hkusu/review-assign-action@v1
         with:
           reviewers: ArchiFleKs
-          token: ${{ secrets.GITHUB_TOKEN }}
+          github_token: ${{ secrets.GITHUB_TOKEN }}
