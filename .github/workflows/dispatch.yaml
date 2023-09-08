@@ -18,18 +18,23 @@ jobs:
         run: |
           VERSION=$(echo ${{ github.event.client_payload.metadata.revision }} | cut -d '@' -f1)
           APP=$(echo ${{ github.event.client_payload.involvedObject.name }})
+          CHART=$(yq -r "select(.metadata.name == \"$APP\") | .spec.chart.spec.chart" gitops/apps/vaas/kiln-aws-testnet-eu-west-1/*)
           echo VERSION=${VERSION} >> $GITHUB_OUTPUT
           echo APP=${APP} >> $GITHUB_OUTPUT
+          echo CHART=${CHART} >> $GITHUB_OUTPUT
 
       # Patch the chart version in the mainnet Helm release manifest.
       - name: Set chart version in mainnet
         id: mainnet
         env:
           CHART_VERSION: ${{ steps.testnet.outputs.version }}
+          CHART: ${{ steps.testnet.outputs.chart }}
           APP: ${{ steps.testnet.outputs.app }}
         run: |
-          echo "set ${APP} chart version to ${CHART_VERSION}"
-          yq eval '.spec.chart.spec.version=env(CHART_VERSION)' -i ./${APP}.yaml
+          for file in $(find gitops/apps/vaas/kiln-aws-mainnet-eu-west-1/ -name "*.yaml" -exec yq -r "select(.spec.chart.spec.chart == \"$CHART\") | filename' {} \;) ; do
+            echo "set chart version to ${CHART_VERSION} for HelmRelease ${APP}"
+            yq eval '.spec.chart.spec.version=env(CHART_VERSION)' -i ./gitops/apps/vaas/kiln-aws-mainnet-eu-west-1/${file}
+          done
 
       # Open a Pull Request if an upgraded is needed in mainnet.
       - name: Open promotion PR
