@@ -19,8 +19,13 @@ jobs:
           VERSION=$(echo ${{ github.event.client_payload.metadata.revision }} | cut -d '@' -f1)
           APP=$(echo ${{ github.event.client_payload.involvedObject.name }})
           grep -Rn $APP gitops/apps/vaas/kiln-aws-testnet-eu-west-1/
-          yq -r "select(.metadata.name == \"$APP\") | .spec.chart.spec.chart" gitops/apps/vaas/kiln-aws-testnet-eu-west-1/*
-          yq -r "select(.metadata.name == \"${APP}\") | .spec.chart.spec.chart" gitops/apps/vaas/kiln-aws-testnet-eu-west-1/*
+          ls -lh
+          echo "0"
+          echo "app : $APP"
+          echo "1"
+          yq -v -r "select(.metadata.name == \"$APP\") | .spec.chart.spec.chart" gitops/apps/vaas/kiln-aws-testnet-eu-west-1/*
+          echo "2"
+          yq -v -r "select(.metadata.name == \"${APP}\") | .spec.chart.spec.chart" gitops/apps/vaas/kiln-aws-testnet-eu-west-1/*
           CHART=$(yq -r "select(.metadata.name == \"$APP\") | .spec.chart.spec.chart" gitops/apps/vaas/kiln-aws-testnet-eu-west-1/*)
           echo "chart=$CHART"
           echo VERSION=${VERSION} >> $GITHUB_OUTPUT
