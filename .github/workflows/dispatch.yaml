@@ -18,6 +18,7 @@ jobs:
         run: |
           VERSION=$(echo ${{ github.event.client_payload.metadata.revision }} | cut -d '@' -f1)
           APP=$(echo ${{ github.event.client_payload.involvedObject.name }})
+          yq -r "select(.metadata.name == \"$APP\") | .spec.chart.spec.chart" gitops/apps/vaas/kiln-aws-testnet-eu-west-1/*
           CHART=$(yq -r "select(.metadata.name == \"$APP\") | .spec.chart.spec.chart" gitops/apps/vaas/kiln-aws-testnet-eu-west-1/*)
           echo VERSION=${VERSION} >> $GITHUB_OUTPUT
           echo APP=${APP} >> $GITHUB_OUTPUT
