@@ -18,7 +18,7 @@ jobs:
           ref: main
       - name: write something
         run: |
-          sed -i 's/a/b/' *
+          sed -i 's/a/b/' *.yaml
       - name: Open promotion PR
         uses: peter-evans/create-pull-request@v4
         with:
