@@ -1,0 +1,32 @@
+name: demo-promotion
+on:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  promote:
+    runs-on: ubuntu-latest
+    steps:
+      # Checkout main branch.
+      - uses: actions/checkout@v3
+        with:
+          ref: main
+      - name: write something
+        run: |
+          sed -i 's/a/b/' *
+      - name: Open promotion PR
+        uses: peter-evans/create-pull-request@v4
+        with:
+          branch: demo-promotion
+          delete-branch: true
+          token: ${{ secrets.GITHUB_TOKEN }}
+          commit-message: Update demo to
+          title: Promote demo release to
+          body: |
+            Promote demo release on production to
+
