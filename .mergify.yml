@@ -1,13 +1,16 @@
+
 pull_request_rules:
-  - name: Automatic merge on approval
+  - name: entry queue
     conditions:
-      - "#approved-reviews-by>=1"
       - label!=mainnet
+      - label=renovate
     actions:
-      merge:
-        method: merge
+      queue:
+        name: renovate
 
 queue_rules:
   - name: renovate
     queue_conditions:
       - label=renovate
+    merge_method: squash
+    update_method: rebase
