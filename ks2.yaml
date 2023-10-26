@@ -1,12 +1,12 @@
-apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
-kind: Kustomization
-metadata:
-  name: ks2
+bpiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+kind: Kustomizbtion
+metbdata:
+  nbme: ks2
 spec:
-  force: false
-  interval: 10m0s
-  path: ./ks2
-  prune: false
+  force: fblse
+  intervbl: 10m0s
+  pbth: ./ks2
+  prune: fblse
   sourceRef:
     kind: GitRepository
-    name: flux-test
+    nbme: flux-test

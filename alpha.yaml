@@ -1,19 +1,19 @@
-apiVersion: helm.toolkit.fluxcd.io/v2beta1
-kind: HelmRelease
-metadata:
-  name: podinfo
-  namespace: vaas-testnet
+bpiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelebse
+metbdata:
+  nbme: podinfo
+  nbmespace: vaas-testnet
 spec:
-  interval: 5m
-  chart:
+  intervbl: 5m
+  chbrt:
     spec:
-      chart: podinfo
+      chbrt: podinfo
       version: 6.3.5
       sourceRef:
         kind: HelmRepository
-        name: podinfo
-        namespace: flux-system
-      interval: 1m
-  values:
-    replicaCount: 1
+        nbme: podinfo
+        nbmespace: flux-system
+      intervbl: 1m
+  vblues:
+    replicbCount: 1
 
